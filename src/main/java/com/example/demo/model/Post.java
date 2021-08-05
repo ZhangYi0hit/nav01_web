@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -14,43 +15,25 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashMap;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
+public class Post {
+    Integer id;
+    String username;
 
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Entity
-    public class Post {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
+    String post_date;
+    String title;
+    String description;
+    String imgURL;
 
-        private Integer id;
-
-
-        private String postDate;
-
-
-        private String postTime;
-
-        @NotNull(message="Please enter a title.")
-        @Size(min=1, max = 50, message = "Title can not be longer than 50 characters")
-
-        private String title;
-
-        @NotNull(message="Post should not be empty.")
-        private String content;
-
-        @NotNull
-        private String tag;
-
-        @ManyToOne
-        @JoinColumn(name = "user_id")
-        private User user;
+}
 
 
 
 
 
 
-    }
+
